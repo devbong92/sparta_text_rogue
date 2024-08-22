@@ -19,6 +19,12 @@
 ![image](https://github.com/user-attachments/assets/a4ac941e-bded-4292-be08-ad93ef999494)
 ![image](https://github.com/user-attachments/assets/469983e9-0454-425e-809d-721ca6e3690d)
 
+## 플레이어 사망
+![image](https://github.com/user-attachments/assets/ea5c6ebc-c659-4829-8a1b-4fd017ad315d)
+
+## 게임 클리어
+![image](https://github.com/user-attachments/assets/dfa81eba-9fb5-47eb-b526-6c25e759fb4d)
+
 
 # 도전 기능 
 ## 확률 로직 적용
