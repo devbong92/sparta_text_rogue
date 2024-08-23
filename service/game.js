@@ -3,6 +3,8 @@ import figlet from 'figlet';
 import readlineSync from 'readline-sync';
 import { randomVal, randomPer } from '../utils/tool.js';
 import { nomalAttack, skillAttack, defendAndCounter, playerEscape } from '../service/action.js';
+import { start } from '../server.js';
+import { setAchievements } from './achievement.js';
 
 class Character {
   constructor() {
@@ -101,7 +103,7 @@ class Player extends Character {
 class Monster extends Character {
   constructor() {
     super();
-    this._type = '몬스터';
+    this._type = '고스트';
     this._hp = 20;
     this._minDamage = 3;
     this._maxPer = 10;
@@ -220,14 +222,24 @@ const battle = async (stage, player, monster) => {
       console.clear();
       logs.push(
         chalk.redBright(`\n-----[ S T A G E (${stage}) C L E A R ]----- 
-                                \n     몬스터를 처치했습니다!!!
+                                \n     ${monster.name} 처치했습니다!!!
                                 \n-----[ S T A G E (${stage}) C L E A R ]-----`),
       );
       displayStatus(stage, player, monster);
 
       logs.forEach((log) => console.log(log));
 
-      console.log(chalk.green(`\n스테이지 ${stage} 클리어!\n1. 다음 스테이지로. 2. 그만한다.`));
+      setAchievements(stage, player._name);
+
+      if (stage === 10) {
+        console.log(
+          chalk.green(`\n스테이지 ${stage} 클리어!\n1. 클리어 효과 보기. 2. 로비로 돌아간다.`),
+        );
+      } else {
+        console.log(
+          chalk.green(`\n스테이지 ${stage} 클리어!\n1. 다음 스테이지로. 2. 로비로 돌아간다.`),
+        );
+      }
 
       const exit = readlineSync.question('당신의 선택은? ');
       if (exit === '2') {
@@ -238,7 +250,8 @@ const battle = async (stage, player, monster) => {
                                   \n-----[ G A M E (${stage}) E N D ]-----`),
         );
         logs.forEach((log) => console.log(log));
-        process.exit(0); // 게임 종료
+
+        return false;
       } else {
         break;
       }
@@ -269,7 +282,11 @@ export async function startGame() {
   while (stage <= 10) {
     const monster = new Monster(stage);
     let res = await battle(stage, player, monster);
-    if (!res) break;
+
+    if (!res) {
+      start();
+      break;
+    }
     // 스테이지 클리어 및 게임 종료 조건
 
     stage++;

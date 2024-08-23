@@ -23,22 +23,22 @@ export function nomalAttack(player, monster, logs, loopCnt) {
   let damage = monster.defend(attackP);
   if (damage > 0) {
     logs.push(
-      `[${loopCnt}번째 턴] ${chalk.blueBright(player.name)}가 ${chalk.redBright(`[몬스터]`)}에게 ${chalk.whiteBright.bgRedBright.bold('  ' + damage + '  ')}의 ${isCritical ? chalk.redBright.bold(`강력한`) : ``} 피해를 입혔습니다.`,
+      `[${loopCnt}번째 턴] ${chalk.blueBright(player.name)}가 ${chalk.redBright(`[` + monster.name + `]`)}에게 ${chalk.whiteBright.bgRedBright.bold('  ' + damage + '  ')}의 ${isCritical ? chalk.redBright.bold(`강력한`) : ``} 피해를 입혔습니다.`,
     );
   } else {
     logs.push(
-      `[${loopCnt}번째 턴] ${chalk.blueBright(player.name)}의 공격을 ${chalk.redBright(`[몬스터]`)}가 성공적으로 방어 했습니다.`,
+      `[${loopCnt}번째 턴] ${chalk.blueBright(player.name)}의 공격을 ${chalk.redBright(`[` + monster.name + `]`)}가 성공적으로 방어 했습니다.`,
     );
   }
   // 몬스터 공격
   damage = player.defend(monster.attack());
   if (damage > 0) {
     logs.push(
-      `[${loopCnt}번째 턴] ${chalk.redBright(`[몬스터]`)}가 ${chalk.blueBright(player.name)}에게 ${chalk.whiteBright.bgBlueBright.bold('  ' + damage + '  ')}의 피해를 입혔습니다.`,
+      `[${loopCnt}번째 턴] ${chalk.redBright(`[` + monster.name + `]`)}가 ${chalk.blueBright(player.name)}에게 ${chalk.whiteBright.bgBlueBright.bold('  ' + damage + '  ')}의 피해를 입혔습니다.`,
     );
   } else {
     logs.push(
-      `[${loopCnt}번째 턴] ${chalk.redBright(`[몬스터]`)}의 공격을 ${chalk.blueBright(player.name)}가 성공적으로 방어 했습니다.`,
+      `[${loopCnt}번째 턴] ${chalk.redBright(`[` + monster.name + `]`)}의 공격을 ${chalk.blueBright(player.name)}가 성공적으로 방어 했습니다.`,
     );
   }
 }
@@ -79,18 +79,18 @@ export function defendAndCounter(player, monster, logs, loopCnt) {
   if (damage > 0) {
     logs.push(`[${loopCnt}번째 턴] ${chalk.cyanBright.bold(`[ 방어 실패!!! ]`)}`);
     logs.push(
-      `[${loopCnt}번째 턴] ${chalk.redBright(`[몬스터]`)}가 ${chalk.blueBright(player.name)}에게 ${chalk.whiteBright.bgBlueBright.bold('  ' + damage + '  ')}의 피해를 입혔습니다.`,
+      `[${loopCnt}번째 턴] ${chalk.redBright(`[` + monster.name + `]`)}가 ${chalk.blueBright(player.name)}에게 ${chalk.whiteBright.bgBlueBright.bold('  ' + damage + '  ')}의 피해를 입혔습니다.`,
     );
   } else {
     logs.push(`[${loopCnt}번째 턴] ${chalk.cyanBright.bold(`[ 방어 성공!!! ]`)}`);
     logs.push(
-      `[${loopCnt}번째 턴] ${chalk.redBright(`[몬스터]`)}의 공격을 ${chalk.blueBright(player.name)}가 성공적으로 방어 했습니다.`,
+      `[${loopCnt}번째 턴] ${chalk.redBright(`[` + monster.name + `]`)}의 공격을 ${chalk.blueBright(player.name)}가 성공적으로 방어 했습니다.`,
     );
 
     if (randomPer(60)) {
       damage = Math.floor(monster.defend(player.attack()) * 1.2);
       logs.push(
-        `[${loopCnt}번째 턴] ${chalk.blueBright(player.name)}가 ${chalk.redBright(`[몬스터]`)}에게 ${chalk.whiteBright.bgRedBright.bold('  ' + damage + '  ')}의 되돌려주었습니다. ${chalk.cyanBright.bold(`[ 반격효과 데미지 120% ]`)}`,
+        `[${loopCnt}번째 턴] ${chalk.blueBright(player.name)}가 ${chalk.redBright(`[` + monster.name + `]`)}에게 ${chalk.whiteBright.bgRedBright.bold('  ' + damage + '  ')}의 되돌려주었습니다. ${chalk.cyanBright.bold(`[ 반격효과 데미지 120% ]`)}`,
       );
     }
   }
@@ -98,8 +98,8 @@ export function defendAndCounter(player, monster, logs, loopCnt) {
 
 /**
  * 플레이어 도망 ( 확률 60% )
- * @param {*} player
- * @param {*} monster
+ * @param {Player} player
+ * @param {Monster} monster
  * @param {*} logs
  * @param {*} loopCnt
  */

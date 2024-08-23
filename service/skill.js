@@ -45,7 +45,7 @@ export function doubleAttack(player, monster, logs, loopCnt) {
     logs.push(`[${loopCnt}번째 턴] ${chalk.cyanBright.bold(`[ 연속 공격 성공!!! ]`)}`);
     damage = monster.defend(attackP1 + attackP2);
     logs.push(
-      `[${loopCnt}번째 턴] ${chalk.blueBright(player.name)}가 ${chalk.redBright(`[몬스터]`)}에게 ${chalk.whiteBright.bgRedBright.bold('  ' + damage + '  ')}의 피해를 입혔습니다.`,
+      `[${loopCnt}번째 턴] ${chalk.blueBright(player.name)}가 ${chalk.redBright(`[` + monster.name + `]`)}에게 ${chalk.whiteBright.bgRedBright.bold('  ' + damage + '  ')}의 피해를 입혔습니다.`,
     );
   } else {
     logs.push(`[${loopCnt}번째 턴] ${chalk.cyanBright.bold(`[ 연속 공격 실패!!! ]`)}`);
@@ -75,7 +75,7 @@ export function powerAttack(player, monster, logs, loopCnt) {
     logs.push(`[${loopCnt}번째 턴] ${chalk.cyanBright.bold(`[ 한방 공격 성공!!! ]`)}`);
     damage = monster.defend(attackP * 2);
     logs.push(
-      `[${loopCnt}번째 턴] ${chalk.blueBright(player.name)}가 ${chalk.redBright(`[몬스터]`)}에게 ${chalk.whiteBright.bgRedBright.bold('  ' + damage + '  ')}의 ${isCritical ? chalk.redBright.bold(`강력한`) : ``}피해를 입혔습니다.`,
+      `[${loopCnt}번째 턴] ${chalk.blueBright(player.name)}가 ${chalk.redBright(`[` + monster.name + `]`)}에게 ${chalk.whiteBright.bgRedBright.bold('  ' + damage + '  ')}의 ${isCritical ? chalk.redBright.bold(`강력한`) : ``}피해를 입혔습니다.`,
     );
   } else {
     logs.push(`[${loopCnt}번째 턴] ${chalk.cyanBright.bold(`[ 한방 공격 실패!!! ]`)}`);
