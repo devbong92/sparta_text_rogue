@@ -44,4 +44,7 @@
 ## 크리티컬 적용
 ![image](https://github.com/user-attachments/assets/b01f86ec-7b24-4663-9ba0-c80dd201d8f7)
 
+## 업적
+![image](https://github.com/user-attachments/assets/03071a72-7fea-4cb0-8f30-26be16291130)
+
 
