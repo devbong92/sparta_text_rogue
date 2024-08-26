@@ -2,7 +2,8 @@
 > 2024.08.21(수) ~ 2024.08.28(수)
 
 # 업데이트 내역
-- [2024.08.22(목)] 필수 및 도전 기능 추가 
+- [2024.08.22(목)] 필수 및 도전 기능 추가
+- [2024.08.26(월)] 튜터님 피드백 적용 [#12](https://github.com/devbong92/sparta_text_rogue/issues/12)
 
 # 시작화면
 ![image](https://github.com/user-attachments/assets/ba2dfa24-96f0-4efc-a6cc-e36e271c5017)
