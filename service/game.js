@@ -202,7 +202,6 @@ const battle = async (stage, player, monster) => {
     if (choice === '4') {
       if (playerEscape(player, monster, logs, loopCnt)) {
         break;
-      } else {
       }
     }
 
@@ -233,7 +232,7 @@ const battle = async (stage, player, monster) => {
 
       if (stage === 10) {
         console.log(
-          chalk.green(`\n스테이지 ${stage} 클리어!\n1. 클리어 효과 보기. 2. 로비로 돌아간다.`),
+          chalk.green(`\n스테이지 ${stage} 클리어!\n1. 게임 클리어. 2. 로비로 돌아간다.`),
         );
       } else {
         console.log(
@@ -281,9 +280,9 @@ export async function startGame() {
 
   while (stage <= 10) {
     const monster = new Monster(stage);
-    let res = await battle(stage, player, monster);
+    const isGameOver = await battle(stage, player, monster);
 
-    if (!res) {
+    if (!isGameOver) {
       start();
       break;
     }
