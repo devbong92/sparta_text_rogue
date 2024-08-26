@@ -47,4 +47,9 @@
 ## 업적
 ![image](https://github.com/user-attachments/assets/03071a72-7fea-4cb0-8f30-26be16291130)
 
+## 난이도 옵션
+![image](https://github.com/user-attachments/assets/59f2a2dd-79c8-4138-a97c-2fc6f3e824c1)
+![image](https://github.com/user-attachments/assets/8186cd45-ad9e-4118-88da-b5be54526fc6)
+
+
 
