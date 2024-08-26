@@ -5,6 +5,7 @@ import { randomVal, randomPer } from '../utils/tool.js';
 import { nomalAttack, skillAttack, defendAndCounter, playerEscape } from '../service/action.js';
 import { start } from '../server.js';
 import { setAchievements } from './achievement.js';
+import { playerPer, monsterPer, gameLv } from './gameLevel.js';
 
 class Character {
   constructor() {
@@ -51,6 +52,10 @@ class Player extends Character {
     super();
     this._type = '플레이어';
     this._defense = 5;
+    this._hp = Math.floor(100 * playerPer);
+    this._minDamage = Math.floor(5 * playerPer);
+    this._maxPer = Math.floor(20 * playerPer);
+    this._maxDamage = Math.floor(this._minDamage * (1 + this._maxPer / 100));
   }
 
   // 스테이지 업 효과
@@ -104,9 +109,9 @@ class Monster extends Character {
   constructor() {
     super();
     this._type = '고스트';
-    this._hp = 20;
-    this._minDamage = 3;
-    this._maxPer = 10;
+    this._hp = Math.floor(20 * monsterPer);
+    this._minDamage = Math.floor(3 * monsterPer);
+    this._maxPer = Math.floor(10 * monsterPer);
     this._maxDamage = Math.floor(this._minDamage * (1 + this._maxPer / 100));
   }
 
@@ -153,17 +158,18 @@ function gameTitle() {
 
 // 스테이터스 표시
 function displayStatus(stage, player, monster) {
-  console.log(chalk.magentaBright(`\n=== Current Status ===`));
+  console.log(chalk.magentaBright(`\n============= Current Status =============`));
   console.log(
     chalk.cyanBright(`| Stage: ${stage} `) +
+      chalk.magenta(`| Game Mode: ${gameLv} `) +
       chalk.blueBright(
-        `| ${player.name} 정보 HP: ${player._hp}, Attack: ${player._minDamage} ~ ${player._maxDamage}  `,
+        `\n| ${player.name} 정보 HP: ${player._hp}, Attack: ${player._minDamage} ~ ${player._maxDamage}  `,
       ) +
       chalk.redBright(
-        `| ${monster.name} 정보 HP:  ${monster._hp}, Attack: ${monster._minDamage} ~ ${monster._maxDamage}  |`,
+        `\n| ${monster.name} 정보 HP:  ${monster._hp}, Attack: ${monster._minDamage} ~ ${monster._maxDamage}  |`,
       ),
   );
-  console.log(chalk.magentaBright(`=====================\n`));
+  console.log(chalk.magentaBright(`============================================\n`));
 }
 
 // 전투
@@ -232,7 +238,9 @@ const battle = async (stage, player, monster) => {
 
       if (stage === 10) {
         console.log(
-          chalk.green(`\n스테이지 ${stage} 클리어!\n1. 게임 클리어. 2. 로비로 돌아간다.`),
+          chalk.green(
+            `\n마지막 스테이지(${stage})를 클리어했습니다!\n1. 게임 종료. 2. 로비로 돌아간다.`,
+          ),
         );
       } else {
         console.log(
@@ -278,12 +286,12 @@ export async function startGame() {
   const player = new Player();
   let stage = 1;
 
+  let isGameClear;
   while (stage <= 10) {
     const monster = new Monster(stage);
-    const isGameOver = await battle(stage, player, monster);
+    isGameClear = await battle(stage, player, monster);
 
-    if (!isGameOver) {
-      start();
+    if (!isGameClear) {
       break;
     }
     // 스테이지 클리어 및 게임 종료 조건
@@ -291,32 +299,36 @@ export async function startGame() {
     stage++;
   }
 
-  if (stage >= 10) {
-    let logs = [];
-    console.clear();
-    console.log(
-      chalk.cyan(
-        figlet.textSync('Ghost Rogue', {
-          font: 'Ghost', //'Standard', Ghost, pagga
-          horizontalLayout: 'default',
-          verticalLayout: 'default',
-        }),
-      ),
-    );
-    console.log(
-      chalk.cyan(
-        figlet.textSync('GAME CLEAR!!', {
-          font: 'Ghost', //'Standard', Ghost, pagga
-          horizontalLayout: 'default',
-          verticalLayout: 'default',
-        }),
-      ),
-    );
-    logs.push(
-      chalk.magentaBright(`\n-----[ G A M E :: C L E A R ]----- 
-                  \n     게임을 클리어 하셨습니다!!!
-                  \n-----[ G A M E :: C L E A R ]-----`),
-    );
-    logs.forEach((log) => console.log(log));
+  if (isGameClear) {
+    if (stage >= 10) {
+      let logs = [];
+      console.clear();
+      console.log(
+        chalk.cyan(
+          figlet.textSync('Ghost Rogue', {
+            font: 'Ghost', //'Standard', Ghost, pagga
+            horizontalLayout: 'default',
+            verticalLayout: 'default',
+          }),
+        ),
+      );
+      console.log(
+        chalk.cyan(
+          figlet.textSync('GAME CLEAR!!', {
+            font: 'Ghost', //'Standard', Ghost, pagga
+            horizontalLayout: 'default',
+            verticalLayout: 'default',
+          }),
+        ),
+      );
+      logs.push(
+        chalk.magentaBright(`\n-----[ G A M E :: C L E A R ]----- 
+                    \n     게임을 클리어 하셨습니다!!!
+                    \n-----[ G A M E :: C L E A R ]-----`),
+      );
+      logs.forEach((log) => console.log(log));
+    }
+  } else {
+    start();
   }
 }

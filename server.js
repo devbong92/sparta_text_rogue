@@ -3,6 +3,7 @@ import figlet from 'figlet';
 import readlineSync from 'readline-sync';
 import { startGame } from './service/game.js';
 import { displayAchievements } from './service/achievement.js';
+import { displayGameLv } from './service/gameLevel.js';
 
 // 로비 화면을 출력하는 함수
 function displayLobby() {
@@ -26,6 +27,8 @@ function displayLobby() {
   // 게임 이름
   console.log(chalk.yellowBright.bold('[Ghost Rogue]'), chalk.green('에 오신것을 환영합니다!'));
 
+  console.log(line);
+
   // 설명 텍스트
   console.log(chalk.green('옵션을 선택해주세요.'));
   console.log();
@@ -33,7 +36,7 @@ function displayLobby() {
   // 옵션들
   console.log(chalk.blue('1.') + chalk.white(' 새로운 게임 시작'));
   console.log(chalk.blue('2.') + chalk.white(' 업적 확인하기'));
-  console.log(chalk.blue('3.') + chalk.white(' 옵션'));
+  console.log(chalk.blue('3.') + chalk.white(' 난이도'));
   console.log(chalk.blue('4.') + chalk.white(' 종료'));
 
   // 하단 경계선
@@ -60,9 +63,8 @@ function handleUserInput() {
       handleUserInput();
       break;
     case '3':
-      console.log(chalk.blue('구현 준비중입니다.. 게임을 시작하세요'));
-      // 옵션 메뉴 로직을 구현
-      handleUserInput();
+      displayGameLv();
+      // handleUserInput();
       break;
     case '4':
       console.log(chalk.red('게임을 종료합니다.'));
