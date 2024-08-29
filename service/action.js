@@ -56,7 +56,10 @@ export function skillAttack(player, monster, logs, loopCnt) {
   }
   console.log(chalk.gray(`1-${skillMap.size} 사이의 수를 입력한 뒤 엔터를 누르세요.`));
   const choice = readlineSync.question('당신의 선택은? ');
-  logs.push(chalk.cyan(`[ ${choice}. ${skillMap.get(choice).name} ]`) + ` 를 선택하셨습니다. `);
+
+  if (skillMap.get(choice)) {
+    logs.push(chalk.cyan(`[ ${choice}. ${skillMap.get(choice).name} ]`) + ` 를 선택하셨습니다. `);
+  }
 
   switch (choice) {
     case '1':

@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import figlet from 'figlet';
 import readlineSync from 'readline-sync';
-import { randomVal, randomPer } from '../utils/tool.js';
+import { randomVal, randomPer, textEffectReverse, delay } from '../utils/tool.js';
 import { nomalAttack, skillAttack, defendAndCounter, playerEscape } from '../service/action.js';
 import { start } from '../server.js';
 import { setAchievements } from './achievement.js';
@@ -144,16 +144,25 @@ function stageUp(stage, player, monster, logs) {
 }
 
 // 게임 타이틀 표기
-function gameTitle() {
-  console.log(
-    chalk.cyan(
-      figlet.textSync('Ghost Rogue', {
-        font: 'Ghost', //'Standard', Ghost, pagga
-        horizontalLayout: 'default',
-        verticalLayout: 'default',
-      }),
-    ),
-  );
+async function gameTitle() {
+  await textEffectReverse('Ghost Rogue', 0.08, chalk.black, chalk.black);
+
+  const colors = [chalk.yellowBright, chalk.redBright, chalk.cyan];
+  for (let i = 0; i < 3; i++) {
+    await delay(0.3);
+    console.clear();
+    console.log(
+      colors[i](
+        figlet.textSync('Ghost Rogue', {
+          font: 'Ghost', //'Standard', Ghost, pagga
+          horizontalLayout: 'default',
+          verticalLayout: 'default',
+        }),
+      ),
+    );
+  }
+
+  await delay(0.3);
 }
 
 // 스테이터스 표시
@@ -183,7 +192,7 @@ const battle = async (stage, player, monster) => {
     }
     stageUp(stage, player, monster, logs);
   } else {
-    gameTitle();
+    await gameTitle();
     console.log(chalk.cyan(`\n========= 게임을 진행할 플레이어 이름을 입력하세요. =========\n`));
     const name = readlineSync.question('플레이어 이름: ');
     player._name = name;
